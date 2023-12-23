@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-5">
                         <label for="land" class="form-label">Land</label>
-                        <select id="land" class="form-select" aria-label="Default select example">
+                        <select id="land" class="form-select">
                             <option value="" selected>Kies een land</option>
                             <option value="belgie">België</option>
                             <option value="duitsland">Duitsland</option>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="provincie" class="form-label">Provincie</label>
-                        <select id="provincie" class="form-select" aria-label="Default select example">
+                        <select id="provincie" class="form-select">
                             <option value="" selected>Kies een provincie</option>
                             <option value="antwerpen">Antwerpen</option>
                             <option value="henegouwen">Henegouwen</option>
@@ -136,19 +136,14 @@
                 </div>
                 <div class="alert alert-info" role="alert" id="betaling">
                     <h4 class="alert-heading">Betalingswijze</h4>
+                    <p></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        
-        // const wachtwoord = document.querySelector('#wachtwoord');
-        // const wachtwoord2 = document.querySelector('#wachtwoord2');
-        // const postcode = document.querySelector('#postcode');
-
-               
-        //Hide alerts when 
+    <script>            
+        //Hide alerts wanneer pagina wordt geladen
         window.addEventListener('load', hideAlerts);
 
         function hideAlerts() {
@@ -157,6 +152,7 @@
             document.querySelector('#betaling').classList.add('d-none')
         }
 
+        //Initialiseren foutenlijst
         let errors = [];
 
         //Activeer validatie bij button click
@@ -164,17 +160,14 @@
 
         function validateForm() {
             
-            //Maak foutenlijst leeg
+            //Maak foutenlijst leeg wanneer op button wordt geklikt (om dubbel foutmeldingen te vermijden)
             errors = [];
             
-            //Check lege velden
+            //Check lege velden (deel 1)
             checkEmptyField('voornaam', 'Het veld voornaam is vereist.');
             checkEmptyField('naam', 'Het veld naam is vereist.');
             checkEmptyField('username', 'Het veld gebruikersnaam is vereist.');
             checkEmptyField('email', 'Het veld email is vereist.');
-            checkEmptyField('adres', 'Het veld adres is vereist.');
-            checkEmptyField('land', 'Het veld land is vereist.');
-            checkEmptyField('provincie', 'Het veld provincie is vereist.');
 
             //Check e-mail
             let email = document.querySelector('#email')
@@ -185,28 +178,30 @@
             }
 
             //Check wachtwoorden
-            //Lege velden
             checkEmptyField('wachtwoord', 'Het veld wachtwoord is vereist.');
             checkEmptyField('wachtwoord2', 'Het veld herhaald wachtwoord is vereist.');
             
             let wachtwoord = document.querySelector('#wachtwoord').value;
             let wachtwoord2 = document.querySelector('#wachtwoord2').value;
 
-            //Lengte wachtwoord
-            if(wachtwoord != "" && wachtwoord.length < 8){
-                errors.push('je wachtwoord moet minstens 8 tekens lang zijn');
-            }
+            validatePassword(wachtwoord, wachtwoord2)
 
-            //Overeenstemming
-            if(wachtwoord != "" && wachtwoord2 != "" && wachtwoord !== wachtwoord2){
-                errors.push('je wachtwoorden komen niet overeen');
-            } 
-
+            //Check lege velden (deel 2)
+            checkEmptyField('adres', 'Het veld adres is vereist.');
+            checkEmptyField('land', 'Het veld land is vereist.');
+            checkEmptyField('provincie', 'Het veld provincie is vereist.');
+            
+            //Check postcode
+            checkPC('postcode')
+            
             //Check betalingswijze
             validatePayment('betalingswijze')
 
-            //Check postcode
-            checkPC('postcode')
+            //Check algemene voorwaarden (gtob = general terms of business)
+            let gtob = document.querySelector('#gtob')
+            if(!gtob.checked){
+                errors.push('Je moet de algemene voorwaarden accepteren.')
+            }
 
             //Genereer foutenlijst
             if (errors.length > 0) {
@@ -248,13 +243,21 @@
             let payMethods = document.querySelectorAll(`input[name=${veld}]`)
             payMethods.forEach(payMethod => {
                 if(payMethod.checked){    
-                    let message = document.createElement('p');
-                    message.innerHTML = "";
-                    console.log(payMethod.value)
-                    message.innerHTML = `<p>Je betalingswijze is ${payMethod.value}.</p> `
-                    document.querySelector('#betaling').appendChild(message)
+                    document.querySelector('#betaling').textContent = `Je betalingswijze is ${payMethod.value}.`
                 }
             })
+        }
+
+        function validatePassword(wachtwoord, wachtwoord2){
+            //Lengte wachtwoord
+            if(wachtwoord != "" && wachtwoord.length < 8){
+                errors.push('Je wachtwoord moet minstens 8 tekens lang zijn.');
+                return
+            }
+            //Overeenstemming
+            if(wachtwoord != "" && wachtwoord2 != "" && wachtwoord !== wachtwoord2){
+                errors.push('Je wachtwoorden komen niet overeen.');
+            }             
         }
 
         function checkPC(veld){
@@ -265,7 +268,6 @@
             }
             if(field.value != "" && (field.value < 1000 || field.value >= 10000)){
                 errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen.')
-                return
             }
         }
 
