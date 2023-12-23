@@ -28,10 +28,10 @@
                         <input type="text" class="form-control" id="naam" placeholder="Uw naam">
                     </div>
                     <div class="col-md-6">
-                        <label for="naam" class="form-label">Gebruikersnaam</label>
+                        <label for="username" class="form-label">Gebruikersnaam</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="u911236" aria-label="Username"
+                            <input type="text" id="username" class="form-control" placeholder="u911236" aria-label="Username"
                                 aria-describedby="basic-addon1">
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="col-md-5">
                         <label for="land" class="form-label">Land</label>
                         <select id="land" class="form-select" aria-label="Default select example">
-                            <option selected>Kies een land</option>
+                            <option value="" selected>Kies een land</option>
                             <option value="belgie">België</option>
                             <option value="duitsland">Duitsland</option>
                             <option value="frankrijk">Frankrijk</option>
@@ -66,7 +66,7 @@
                     <div class="col-md-4">
                         <label for="provincie" class="form-label">Provincie</label>
                         <select id="provincie" class="form-select" aria-label="Default select example">
-                            <option selected>Kies een provincie</option>
+                            <option value="" selected>Kies een provincie</option>
                             <option value="antwerpen">Antwerpen</option>
                             <option value="henegouwen">Henegouwen</option>
                             <option value="limburg">Limburg</option>
@@ -119,14 +119,16 @@
     
                     <hr>
     
-                    <button type="button" class="btn btn-primary btn-lg">Wave your magic wand</button>
+                    <button id="btnCheck" type="button" class="btn btn-primary btn-lg">Wave your magic wand</button>
                 </form>
             </div>
             
             <!--Alerts-->
             <div class="col-md">
-                <div class="alert alert-danger" role="alert" id="error">
+                <div class="alert alert-danger" role="alert" id="errors">
                     <h4 class="alert-heading">Yikes, errors..</h4>
+                    <ul class="mb-0">
+                    </ul>
                 </div>
                 <div class="alert alert-success" role="alert" id="correct">
                     <h4 class="alert-heading">Goed gedaan!</h4>
@@ -140,7 +142,91 @@
     </div>
 
     <script>
-        // JavaScript code
+        //Variabelen definiëren/elementen oproepen
+        // const voornaam = document.querySelector('#voornaam');
+        // const naam = document.querySelector('#naam');
+        // const username = document.querySelector('#username');
+        // const adres = document.querySelector('#adres');
+        // const land = document.querySelector('#land');
+        // const provincie = document.querySelector('#provincie');
+
+        let email = document.querySelector('#email')
+        // const wachtwoord = document.querySelector('#wachtwoord');
+        // const wachtwoord2 = document.querySelector('#wachtwoord2');
+        // const postcode = document.querySelector('#postcode');
+
+               
+        //Hide alerts when 
+        window.addEventListener('load', hideAlerts);
+
+        function hideAlerts() {
+            document.querySelector('#correct').classList.add('d-none')
+            document.querySelector('#errors').classList.add('d-none')
+            document.querySelector('#betaling').classList.add('d-none')
+        }
+
+        let errors = [];
+
+        //Activeer validatie bij button click
+        document.querySelector('#btnCheck').addEventListener('click', validateForm);
+
+        function validateForm() {
+            
+            //Maak foutenlijst leeg
+            errors = [];
+            
+            //Check lege velden
+            checkEmptyField('voornaam', 'Het veld voornaam is vereist.');
+            checkEmptyField('naam', 'Het veld naam is vereist.');
+            checkEmptyField('username', 'Het veld gebruikersnaam is vereist.');
+            checkEmptyField('adres', 'Het veld adres is vereist.');
+            checkEmptyField('land', 'Het veld land is vereist.');
+            checkEmptyField('provincie', 'Het veld provincie is vereist.');
+
+            //Check e-amil
+            if(!validateEmail(email)) {
+                errors.push('E-mailadres is niet correct.')
+            }
+
+            //Genereer foutenlijst
+            if (errors.length > 0) {
+                let errorList = document.querySelector("#errors ul");
+                errorList.innerHTML = "";
+                errors.forEach(error => {
+                    errorList.innerHTML += `<li>${error}</li>`
+                });
+                document.querySelector('#correct').classList.add('d-none');
+                document.querySelector('#betaling').classList.add('d-none');
+                document.querySelector('#errors').classList.remove('d-none');
+
+            } else {
+                document.querySelector('#correct').classList.remove('d-none');
+                document.querySelector('#betaling').classList.remove('d-none');
+                document.querySelector('#errors').classList.add('d-none');
+            }
+            
+        }
+
+        //Controles
+        function checkEmptyField(veld, melding){
+            let field = document.querySelector('#' + veld)
+            if(field.value == ""){
+                errors.push(melding)
+            }
+        }
+
+        function validateEmail(email){
+            // https://www.regular-expressions.info/quickstart.html
+            // https://builtin.com/software-engineering-perspectives/javascript-regex
+            // https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html
+            const mailRegex = /^[^\.\-][a-zA-Z0-9_\-\.]+@[a-zA-Z0-9][a-zA-Z0-9_\-\.]+\.[a-zA-Z]+/
+            return email.value.match(mailRegex)            
+        }
+
+        function validatePassword(wachtwoord, wachtwoord2){
+
+        }
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
