@@ -179,7 +179,7 @@
 
             //Check wachtwoorden
             checkEmptyField('wachtwoord', 'Het veld wachtwoord is vereist.');
-            checkEmptyField('wachtwoord2', 'Het veld herhaald wachtwoord is vereist.');
+            checkEmptyField('wachtwoord2', 'Het veld herhaal wachtwoord is vereist.');
             
             let wachtwoord = document.querySelector('#wachtwoord').value;
             let wachtwoord2 = document.querySelector('#wachtwoord2').value;
@@ -187,9 +187,9 @@
             validatePassword(wachtwoord, wachtwoord2)
 
             //Check lege velden (deel 2)
-            checkEmptyField('adres', 'Het veld adres is vereist.');
-            checkEmptyField('land', 'Het veld land is vereist.');
-            checkEmptyField('provincie', 'Het veld provincie is vereist.');
+            checkEmptyField('adres', 'Adres is vereist.');
+            checkEmptyField('land', 'Land is vereist.');
+            checkEmptyField('provincie', 'Provincie is vereist.');
             
             //Check postcode
             checkPC('postcode')
@@ -267,7 +267,7 @@
                 return
             }
             if(field.value != "" && (field.value < 1000 || field.value >= 10000)){
-                errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen.')
+                errors.push('De waarde van postcode moet tussen 1000 en 9999 liggen.')
             }
         }
 
