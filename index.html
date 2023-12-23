@@ -100,19 +100,19 @@
                     <div class="col-md-6 mb-3">
                         <h4>Betaling</h4>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="betalingswijze" id="bankingapp" checked>
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="bankingapp" value="Banking App" checked>
                             <label class="form-check-label" for="bankingapp">Banking app</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="betalingswijze" id="overschrijving">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="overschrijving" value="Overschrijving">
                             <label class="form-check-label" for="overschrijving">Overschrijving</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="betalingswijze" id="visa">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="visa" value="Visa card">
                             <label class="form-check-label" for="visa">Visa card</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="betalingswijze" id="paypal">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="paypal" value="PayPal">
                             <label class="form-check-label" for="paypal">PayPal</label>
                         </div>
                     </div>
@@ -142,15 +142,7 @@
     </div>
 
     <script>
-        //Variabelen definiëren/elementen oproepen
-        // const voornaam = document.querySelector('#voornaam');
-        // const naam = document.querySelector('#naam');
-        // const username = document.querySelector('#username');
-        // const adres = document.querySelector('#adres');
-        // const land = document.querySelector('#land');
-        // const provincie = document.querySelector('#provincie');
-
-        let email = document.querySelector('#email')
+        
         // const wachtwoord = document.querySelector('#wachtwoord');
         // const wachtwoord2 = document.querySelector('#wachtwoord2');
         // const postcode = document.querySelector('#postcode');
@@ -179,21 +171,49 @@
             checkEmptyField('voornaam', 'Het veld voornaam is vereist.');
             checkEmptyField('naam', 'Het veld naam is vereist.');
             checkEmptyField('username', 'Het veld gebruikersnaam is vereist.');
+            checkEmptyField('email', 'Het veld email is vereist.');
             checkEmptyField('adres', 'Het veld adres is vereist.');
             checkEmptyField('land', 'Het veld land is vereist.');
             checkEmptyField('provincie', 'Het veld provincie is vereist.');
 
-            //Check e-amil
-            if(!validateEmail(email)) {
-                errors.push('E-mailadres is niet correct.')
+            //Check e-mail
+            let email = document.querySelector('#email')
+            if(email.value != ""){
+                if(!validateEmail(email)) {
+                    errors.push('E-mailadres is niet correct.');
+                }
             }
+
+            //Check wachtwoorden
+            //Lege velden
+            checkEmptyField('wachtwoord', 'Het veld wachtwoord is vereist.');
+            checkEmptyField('wachtwoord2', 'Het veld herhaald wachtwoord is vereist.');
+            
+            let wachtwoord = document.querySelector('#wachtwoord').value;
+            let wachtwoord2 = document.querySelector('#wachtwoord2').value;
+
+            //Lengte wachtwoord
+            if(wachtwoord != "" && wachtwoord.length < 8){
+                errors.push('je wachtwoord moet minstens 8 tekens lang zijn');
+            }
+
+            //Overeenstemming
+            if(wachtwoord != "" && wachtwoord2 != "" && wachtwoord !== wachtwoord2){
+                errors.push('je wachtwoorden komen niet overeen');
+            } 
+
+            //Check betalingswijze
+            validatePayment('betalingswijze')
+
+            //Check postcode
+            checkPC('postcode')
 
             //Genereer foutenlijst
             if (errors.length > 0) {
                 let errorList = document.querySelector("#errors ul");
                 errorList.innerHTML = "";
                 errors.forEach(error => {
-                    errorList.innerHTML += `<li>${error}</li>`
+                    errorList.innerHTML += `<li>${error}</li>`;
                 });
                 document.querySelector('#correct').classList.add('d-none');
                 document.querySelector('#betaling').classList.add('d-none');
@@ -207,7 +227,7 @@
             
         }
 
-        //Controles
+        //Controles in afzonderlijke functies
         function checkEmptyField(veld, melding){
             let field = document.querySelector('#' + veld)
             if(field.value == ""){
@@ -219,12 +239,34 @@
             // https://www.regular-expressions.info/quickstart.html
             // https://builtin.com/software-engineering-perspectives/javascript-regex
             // https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html
+        
             const mailRegex = /^[^\.\-][a-zA-Z0-9_\-\.]+@[a-zA-Z0-9][a-zA-Z0-9_\-\.]+\.[a-zA-Z]+/
-            return email.value.match(mailRegex)            
+            return email.value.match(mailRegex)   
         }
 
-        function validatePassword(wachtwoord, wachtwoord2){
+        function validatePayment(veld){
+            let payMethods = document.querySelectorAll(`input[name=${veld}]`)
+            payMethods.forEach(payMethod => {
+                if(payMethod.checked){    
+                    let message = document.createElement('p');
+                    message.innerHTML = "";
+                    console.log(payMethod.value)
+                    message.innerHTML = `<p>Je betalingswijze is ${payMethod.value}.</p> `
+                    document.querySelector('#betaling').appendChild(message)
+                }
+            })
+        }
 
+        function checkPC(veld){
+            let field = document.querySelector('#' + veld)
+            if(field.value == ""){
+                errors.push('Het veld postcode is vereist.')
+                return
+            }
+            if(field.value != "" && (field.value < 1000 || field.value >= 10000)){
+                errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen.')
+                return
+            }
         }
 
     </script>
