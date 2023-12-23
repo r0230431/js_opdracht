@@ -127,8 +127,7 @@
             <div class="col-md">
                 <div class="alert alert-danger" role="alert" id="errors">
                     <h4 class="alert-heading">Yikes, errors..</h4>
-                    <ul class="mb-0">
-                    </ul>
+                    <p></p>
                 </div>
                 <div class="alert alert-success" role="alert" id="correct">
                     <h4 class="alert-heading">Goed gedaan!</h4>
@@ -204,11 +203,10 @@
             }
 
             //Genereer foutenlijst
+            document.querySelector("#errors p").innerHTML = ""
             if (errors.length > 0) {
-                let errorList = document.querySelector("#errors ul");
-                errorList.innerHTML = "";
                 errors.forEach(error => {
-                    errorList.innerHTML += `<li>${error}</li>`;
+                    document.querySelector("#errors p").innerHTML += `${error}<br>`;
                 });
                 document.querySelector('#correct').classList.add('d-none');
                 document.querySelector('#betaling').classList.add('d-none');
