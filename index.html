@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Els Van Rompaey">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Opdracht</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registreer</h1>
+        <p class="lead">Meld je aan bij Anoroc Services, wij beschermen jouw software tegen malware!</p>
+
+        <div class="row">
+            <!--Form-->
+            <div class="col-md-8 mb-3">
+                <form class="row g-3" action="https://tm-statweb.be/forms.php" method="post" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <label for="voornaam" class="form-label">Voornaam</label>
+                        <input type="text" class="form-control" id="voornaam" placeholder="Uw voornaam">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="naam" class="form-label">Naam</label>
+                        <input type="text" class="form-control" id="naam" placeholder="Uw naam">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="naam" class="form-label">Gebruikersnaam</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input type="text" class="form-control" placeholder="u911236" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">E-mailadres</label>
+                        <input type="email" class="form-control" id="email" placeholder="mail@example.be">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="wachtwoord" class="form-label">Wachtwoord</label>
+                        <input type="password" class="form-control" id="wachtwoord" aria-describedby="passwordHelpBlock">
+                        <div id="passwordHelpBlock" class="form-text">Je wachtwoord moet minstens 8 tekens lang zijn.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="wachtwoord2" class="form-label">Herhaal wachtwoord</label>
+                        <input type="password" class="form-control" id="wachtwoord2">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="adres" class="form-label">Adres</label>
+                        <input type="text" class="form-control" id="adres" placeholder="Uw adres en huisnummer">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="land" class="form-label">Land</label>
+                        <select id="land" class="form-select" aria-label="Default select example">
+                            <option selected>Kies een land</option>
+                            <option value="belgie">België</option>
+                            <option value="duitsland">Duitsland</option>
+                            <option value="frankrijk">Frankrijk</option>
+                            <option value="luxemburg">Luxemburg</option>
+                            <option value="nederland">Nederland</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="provincie" class="form-label">Provincie</label>
+                        <select id="provincie" class="form-select" aria-label="Default select example">
+                            <option selected>Kies een provincie</option>
+                            <option value="antwerpen">Antwerpen</option>
+                            <option value="henegouwen">Henegouwen</option>
+                            <option value="limburg">Limburg</option>
+                            <option value="luik">Luik</option>
+                            <option value="luxemburg">Luxemburg</option>
+                            <option value="namen">Namen</option>
+                            <option value="oost-vlaanderen">Oost-Vlaanderen</option>
+                            <option value="vlaams-brabant">Vlaams-Brabant</option>
+                            <option value="waals-brabant">Waals-Brabant</option>
+                            <option value="west-vlaanderen">West-Vlaanderen</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="postcode" class="form-label">Postcode</label>
+                        <input type="number" class="form-control" id="postcode" min="1000" max="9999">
+                    </div>
+    
+                    <hr>
+    
+                    <div class="col-md-6">
+                        <h4>Hou me op de hoogte</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="nieuwsbrief">
+                            <label class="form-check-label" for="nieuwsbrief">Inschrijven voor onze nieuwsbrief</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="gtob">
+                            <label class="form-check-label" for="gtob">Ik ga akkoord met de algemene voorwaarden.</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h4>Betaling</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="bankingapp" checked>
+                            <label class="form-check-label" for="bankingapp">Banking app</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="overschrijving">
+                            <label class="form-check-label" for="overschrijving">Overschrijving</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="visa">
+                            <label class="form-check-label" for="visa">Visa card</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="betalingswijze" id="paypal">
+                            <label class="form-check-label" for="paypal">PayPal</label>
+                        </div>
+                    </div>
+    
+                    <hr>
+    
+                    <button type="button" class="btn btn-primary btn-lg">Wave your magic wand</button>
+                </form>
+            </div>
+            
+            <!--Alerts-->
+            <div class="col-md">
+                <div class="alert alert-danger" role="alert" id="error">
+                    <h4 class="alert-heading">Yikes, errors..</h4>
+                </div>
+                <div class="alert alert-success" role="alert" id="correct">
+                    <h4 class="alert-heading">Goed gedaan!</h4>
+                    <p>Aww yeah, je werd geregistreerd.</p>
+                </div>
+                <div class="alert alert-info" role="alert" id="betaling">
+                    <h4 class="alert-heading">Betalingswijze</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
