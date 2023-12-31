@@ -42,7 +42,7 @@
                     <div class="col-md-6">
                         <label for="wachtwoord" class="form-label">Wachtwoord</label>
                         <input type="password" class="form-control" id="wachtwoord" aria-describedby="passwordHelpBlock">
-                        <div id="passwordHelpBlock" class="form-text">Je wachtwoord moet minstens 8 tekens lang zijn.</div>
+                        <div id="passwordHelpBlock" class="form-text">Je wachtwoord moet minstens 8 tekens lang zijn</div>
                     </div>
                     <div class="col-md-6">
                         <label for="wachtwoord2" class="form-label">Herhaal wachtwoord</label>
@@ -92,6 +92,7 @@
                             <input class="form-check-input" type="checkbox" value="" id="nieuwsbrief">
                             <label class="form-check-label" for="nieuwsbrief">Inschrijven voor onze nieuwsbrief</label>
                         </div>
+                        <!--gtob = general terms of business = algemene voorwaarden-->
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="gtob">
                             <label class="form-check-label" for="gtob">Ik ga akkoord met de algemene voorwaarden.</label>
@@ -159,7 +160,7 @@
 
         function validateForm() {
             
-            //Maak foutenlijst leeg wanneer op button wordt geklikt (om dubbel foutmeldingen te vermijden)
+            //Maak foutenlijst leeg wanneer op button wordt geklikt (om dubbele foutmeldingen te vermijden)
             errors = [];
             
             //Check lege velden (deel 1)
@@ -186,9 +187,9 @@
             validatePassword(wachtwoord, wachtwoord2)
 
             //Check lege velden (deel 2)
-            checkEmptyField('adres', 'Adres is vereist.');
-            checkEmptyField('land', 'Land is vereist.');
-            checkEmptyField('provincie', 'Provincie is vereist.');
+            checkEmptyField('adres', 'Het veld adres is vereist.');
+            checkEmptyField('land', 'Het veld land is vereist.');
+            checkEmptyField('provincie', 'Het veld provincie is vereist.');
             
             //Check postcode
             checkPC('postcode')
@@ -228,20 +229,20 @@
             }
         }
 
-        function validateEmail(email){
+        function validateEmail(emailadres){
             // https://www.regular-expressions.info/quickstart.html
             // https://builtin.com/software-engineering-perspectives/javascript-regex
             // https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html
         
             const mailRegex = /^[^\.\-][a-zA-Z0-9_\-\.]+@[a-zA-Z0-9][a-zA-Z0-9_\-\.]+\.[a-zA-Z]+/
-            return email.value.match(mailRegex)   
+            return emailadres.value.match(mailRegex)   
         }
 
         function validatePayment(veld){
             let payMethods = document.querySelectorAll(`input[name=${veld}]`)
             payMethods.forEach(payMethod => {
                 if(payMethod.checked){    
-                    document.querySelector('#betaling').textContent = `Je betalingswijze is ${payMethod.value}.`
+                    document.querySelector('#betaling p').textContent = `Je betalingswijze is ${payMethod.value}.`
                 }
             })
         }
