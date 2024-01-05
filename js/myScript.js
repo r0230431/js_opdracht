@@ -22,15 +22,10 @@ function validateForm() {
 	checkEmptyField('voornaam', 'Het veld voornaam is vereist.');
 	checkEmptyField('naam', 'Het veld naam is vereist.');
 	checkEmptyField('username', 'Het veld gebruikersnaam is vereist.');
-	checkEmptyField('email', 'Het veld email is vereist.');
+	
 
 	//Check e-mail
-	let email = document.querySelector('#email')
-	if(email.value != ""){
-		if(!validateEmail(email)) {
-			errors.push('E-mailadres is niet correct.');
-		}
-	}
+	checkEmail('email');
 
 	//Check wachtwoorden
 	checkEmptyField('wachtwoord', 'Het veld wachtwoord is vereist.');
@@ -81,6 +76,16 @@ function checkEmptyField(veld, melding){
 	let field = document.querySelector('#' + veld)
 	if(field.value == ""){
 		errors.push(melding)
+	}
+}
+
+function checkEmail(veld){
+	checkEmptyField(veld, 'Het veld email is vereist.');
+	let email = document.querySelector('#email')
+	if(email.value != ""){
+		if(!validateEmail(email)) {
+			errors.push('E-mailadres is niet correct.');
+		}
 	}
 }
 
