@@ -90,11 +90,10 @@ function checkEmail(veld){
 }
 
 function validateEmail(emailadres){
-	// https://www.regular-expressions.info/quickstart.html
-	// https://builtin.com/software-engineering-perspectives/javascript-regex
-	// https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html
+	// https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+	// https://stackoverflow.com/questions/6229286/regex-match-first-characters-of-string
 
-	const mailRegex = /^[^\.\-][a-zA-Z0-9_\-\.]+@[a-zA-Z0-9][a-zA-Z0-9_\-\.]+\.[a-zA-Z]+/
+	const mailRegex = /^[a-z0-9_]+[a-z0-9_\.\-]*@[a-z0-9]+[a-z0-9\.\-]+\.[a-z]+/i
 	return emailadres.value.match(mailRegex)   
 }
 
